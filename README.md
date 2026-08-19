@@ -14,4 +14,48 @@ This approach follows methodology established in recent research on Romanized Ne
 
 ---
 
-*More sections (setup, usage, dataset details, evaluation results, license) to be added as the project progresses.*s
+## Setup
+
+Create a virtual environment before installing project dependencies. The environment is stored in `.venv/`, which is excluded from Git.
+
+### Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install indic-transliteration
+```
+
+### Windows
+
+Open PowerShell in the project directory:
+
+```powershell
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install indic-transliteration
+```
+
+If PowerShell blocks activation scripts, allow them for the current user and run the activation command again:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+To leave the virtual environment on either operating system:
+
+```text
+deactivate
+```
+
+## Test Transliteration
+
+With the virtual environment activated, run the example script from the project directory:
+
+```bash
+python explore_transliteration.py
+```
+
+On Windows Command Prompt, activate the environment with `.venv\Scripts\activate.bat` first, then run the same Python command. The script prints the ITRANS transliteration of a sample Devanagari Nepali sentence.
