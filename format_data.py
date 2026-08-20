@@ -3,6 +3,10 @@ from indic_transliteration import sanscript
 from indic_transliteration.sanscript import transliterate
 import re
 
+ds = load_dataset('saillab/alpaca-nepali-cleaned', split='train')
+nan_count = sum(1 for ex in ds if ex['input'].strip().lower() == 'nan')
+print(f"{nan_count} / {len(ds)} examples have literal 'nan' as input")
+
 def to_roman(text):
     """Convert Devanagari text to casual Romanized Nepali."""
     if not text:
@@ -15,7 +19,11 @@ def to_roman(text):
 
 def format_example(example):
     instruction = to_roman(example['instruction'].strip())
-    input_text = to_roman(example['input'].strip())
+    input_raw = example['input'].strip()
+    
+    # Treat empty AND literal "nan" string as no input
+    has_input = input_raw and input_raw.lower() != 'nan'
+    input_text = to_roman(input_raw) if has_input else ""
     output = to_roman(example['output'].strip())
 
     user_content = f"{instruction}\n\n{input_text}" if input_text else instruction
